@@ -105,6 +105,22 @@
         "type": "github"
       }
     },
+    "fish": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1757769253,
+        "narHash": "sha256-Hyzrl0d9cYpUV4rnaYtQh+XTaSer8LDDR1nI3/0MKZk=",
+        "owner": "fish-shell",
+        "repo": "fish-shell",
+        "rev": "f69c2a4d4af20108bfe1521152439e49a0fa3dbe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fish-shell",
+        "repo": "fish-shell",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "locked": {
         "lastModified": 1696426674,
@@ -310,6 +326,7 @@
     },
     "root": {
       "inputs": {
+        "fish": "fish",
         "gleam-nix": "gleam-nix",
         "helix": "helix",
         "janet": "janet",
