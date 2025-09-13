@@ -19,6 +19,11 @@
     { nixpkgs, ... }@inputs:
     let
       inherit (builtins) attrValues removeAttrs;
+      metaPackages = [
+        "all"
+        "dev"
+        "default"
+      ];
       forAllSystems = nixpkgs.lib.genAttrs [
         "aarch64-linux"
         "aarch64-darwin"
@@ -37,10 +42,18 @@
           version = inputs.janet.shortRev;
         };
 
-        default = nixpkgs.legacyPackages.${system}.buildEnv {
-          name = "src-apps";
-          paths = attrValues (removeAttrs inputs.self.packages.${system} [ "default" ]);
+        dev = nixpkgs.legacyPackages.${system}.buildEnv {
+          name = "pvsr/dev-tools";
+          paths = with inputs.self.packages.${system}; [
+            jj
+            helix
+          ];
         };
+        all = nixpkgs.legacyPackages.${system}.buildEnv {
+          name = "pvsr/src-apps";
+          paths = attrValues (removeAttrs inputs.self.packages.${system} metaPackages);
+        };
+        default = inputs.self.packages.${system}.all;
       });
     };
 }
