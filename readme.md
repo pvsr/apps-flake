@@ -2,6 +2,15 @@ This is a nix flake wrapping programs that I often want to build from source, fo
 I used to include some of these directly in my [system flake](https://github.com/pvsr/nixfiles),
 but rebuilding a ton of rust code every time I upgraded nixpkgs got old.
 
+### Dev tools
+ - [Fish shell](https://fishshell.com/)
+ - [Jujutsu VCS](https://jj-vcs.github.io/jj/latest/)
+ - [Helix editor](https://helix-editor.com/)
+
+### Programming languages
+ - [Gleam](https://gleam.run/)
+ - [Janet](https://janet-lang.org/)
+
 ## Usage
 
 ```
