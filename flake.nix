@@ -31,20 +31,22 @@
         "dev"
         "default"
       ];
-      forAllSystems = nixpkgs.lib.genAttrs [
-        "aarch64-linux"
-        "aarch64-darwin"
-        "x86_64-darwin"
-        "x86_64-linux"
-      ];
+      forAllSystems =
+        mkOutputs:
+        nixpkgs.lib.genAttrs [
+          "aarch64-linux"
+          "aarch64-darwin"
+          "x86_64-darwin"
+          "x86_64-linux"
+        ] (system: mkOutputs nixpkgs.legacyPackages.${system});
     in
     {
-      packages = forAllSystems (system: {
-        fish = nixpkgs.legacyPackages.${system}.fish.overrideAttrs (
+      packages = forAllSystems (pkgs: {
+        fish = pkgs.fish.overrideAttrs (
           finalAttrs: previousAttrs: {
             src = inputs.fish;
             version = inputs.fish.shortRev;
-            cargoDeps = nixpkgs.legacyPackages.${system}.rustPlatform.fetchCargoVendor {
+            cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
               inherit (finalAttrs) src patches;
               hash = "sha256-zXaLTROJ90+Gv8M9B9zIcu9MJdtZskgvMSsms+NNAOc=";
             };
@@ -55,28 +57,28 @@
           }
         );
 
-        jj = inputs.jj.packages.${system}.default;
-        helix = inputs.helix.packages.${system}.default;
+        jj = inputs.jj.packages.${pkgs.system}.default;
+        helix = inputs.helix.packages.${pkgs.system}.default;
 
-        gleam = inputs.gleam-nix.packages.${system}.default;
-        janet = nixpkgs.legacyPackages.${system}.janet.overrideAttrs {
+        gleam = inputs.gleam-nix.packages.${pkgs.system}.default;
+        janet = pkgs.janet.overrideAttrs {
           src = inputs.janet;
           version = inputs.janet.shortRev;
         };
 
-        dev = nixpkgs.legacyPackages.${system}.buildEnv {
+        dev = pkgs.buildEnv {
           name = "pvsr/dev-tools";
-          paths = with inputs.self.packages.${system}; [
+          paths = with inputs.self.packages.${pkgs.system}; [
             fish
             jj
             helix
           ];
         };
-        all = nixpkgs.legacyPackages.${system}.buildEnv {
+        all = pkgs.buildEnv {
           name = "pvsr/src-apps";
-          paths = attrValues (removeAttrs inputs.self.packages.${system} metaPackages);
+          paths = attrValues (removeAttrs inputs.self.packages.${pkgs.system} metaPackages);
         };
-        default = inputs.self.packages.${system}.all;
+        default = inputs.self.packages.${pkgs.system}.all;
       });
     };
 }
