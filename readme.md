@@ -6,6 +6,7 @@ but rebuilding a ton of rust code every time I upgraded nixpkgs got old.
  - [Fish shell](https://fishshell.com/)
  - [Jujutsu VCS](https://jj-vcs.github.io/jj/latest/)
  - [Helix editor](https://helix-editor.com/)
+ - [Ghostty terminal](https://ghostty.org/)
 
 ### Programming languages
  - [Gleam](https://gleam.run/)

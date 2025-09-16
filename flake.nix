@@ -10,6 +10,10 @@
     helix.inputs.nixpkgs.follows = "nixpkgs";
     helix.inputs.rust-overlay.follows = "jj/rust-overlay";
 
+    ghostty.url = "github:ghostty-org/ghostty/v1.2.0";
+    ghostty.inputs.nixpkgs.follows = "nixpkgs";
+    ghostty.inputs.zon2nix.inputs.nixpkgs.follows = "nixpkgs";
+
     gleam-nix.url = "github:vic/gleam-nix";
     gleam-nix.inputs.gleam.url = "github:gleam-lang/gleam/v1.12.0";
     gleam-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -59,6 +63,7 @@
 
         jj = inputs.jj.packages.${pkgs.system}.default;
         helix = inputs.helix.packages.${pkgs.system}.default;
+        ghostty = inputs.ghostty.packages.${pkgs.system}.default;
 
         gleam = inputs.gleam-nix.packages.${pkgs.system}.default;
         janet = pkgs.janet.overrideAttrs {
