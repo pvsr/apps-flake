@@ -108,15 +108,16 @@
     "fish": {
       "flake": false,
       "locked": {
-        "lastModified": 1757769253,
-        "narHash": "sha256-Hyzrl0d9cYpUV4rnaYtQh+XTaSer8LDDR1nI3/0MKZk=",
+        "lastModified": 1759004411,
+        "narHash": "sha256-J1/Uup/HJP2COkUaDXg6pO6pKTq/44WKqWFqbv89bZk=",
         "owner": "fish-shell",
         "repo": "fish-shell",
-        "rev": "f69c2a4d4af20108bfe1521152439e49a0fa3dbe",
+        "rev": "29b80bbaf9489c7f998d202a3bc048a9ec66c49a",
         "type": "github"
       },
       "original": {
         "owner": "fish-shell",
+        "ref": "4.1.0",
         "repo": "fish-shell",
         "type": "github"
       }

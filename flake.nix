@@ -2,7 +2,7 @@
   description = "Various dev tools I often want to install from source";
 
   inputs = {
-    fish.url = "github:fish-shell/fish-shell";
+    fish.url = "github:fish-shell/fish-shell/4.1.0";
     fish.flake = false;
     jj.url = "github:jj-vcs/jj/v0.33.0";
     jj.inputs.nixpkgs.follows = "nixpkgs";
@@ -27,7 +27,6 @@
       inherit (builtins)
         attrValues
         removeAttrs
-        concatStringsSep
         replaceStrings
         ;
       metaPackages = [
@@ -49,15 +48,14 @@
         fish = pkgs.fish.overrideAttrs (
           finalAttrs: previousAttrs: {
             src = inputs.fish;
-            version = "4.1.0pre-" + inputs.fish.shortRev;
+            version = "4.1.0";
             cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
               inherit (finalAttrs) src patches;
-              hash = "sha256-zXaLTROJ90+Gv8M9B9zIcu9MJdtZskgvMSsms+NNAOc=";
+              hash = "sha256-9neZKkuQSOPRrBmjYQ5HYHAORNIjSaSAGN+bDqxb4wk=";
             };
-            postPatch = concatStringsSep "\n" [
-              "rm tests/checks/version.fish"
-              (replaceStrings [ "src/tests/highlight.rs" ] [ "src/highlight/tests.rs" ] previousAttrs.postPatch)
-            ];
+            postPatch =
+              replaceStrings [ "src/tests/highlight.rs" ] [ "src/highlight/tests.rs" ]
+                previousAttrs.postPatch;
           }
         );
 
