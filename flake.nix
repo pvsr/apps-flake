@@ -48,7 +48,11 @@
         fish = pkgs.fish.overrideAttrs (
           finalAttrs: previousAttrs: {
             src = inputs.fish;
-            version = "4.1.0";
+            version = pkgs.lib.pipe "${inputs.fish}/Cargo.toml" [
+              builtins.readFile
+              (builtins.match ''.+"fish".version = "([^"]+)".*'')
+              (ver: builtins.elemAt ver 0)
+            ];
             cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
               inherit (finalAttrs) src patches;
               hash = "sha256-WZdfon6mnM+5caWW6yInQx5B1GjCxQ0XLbJlbvHa3Zc=";
