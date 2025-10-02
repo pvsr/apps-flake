@@ -108,16 +108,16 @@
     "fish": {
       "flake": false,
       "locked": {
-        "lastModified": 1759004411,
-        "narHash": "sha256-J1/Uup/HJP2COkUaDXg6pO6pKTq/44WKqWFqbv89bZk=",
+        "lastModified": 1759253233,
+        "narHash": "sha256-3VwDwRjYo9/ifkl2Vt9pTmLabt+XyS0FXi0el+YgC/A=",
         "owner": "fish-shell",
         "repo": "fish-shell",
-        "rev": "29b80bbaf9489c7f998d202a3bc048a9ec66c49a",
+        "rev": "1f6cd5fc2d090c3666207d014cf337519716b73a",
         "type": "github"
       },
       "original": {
         "owner": "fish-shell",
-        "ref": "4.1.0",
+        "ref": "4.1.1",
         "repo": "fish-shell",
         "type": "github"
       }
@@ -329,27 +329,27 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1756954389,
-        "narHash": "sha256-EKYM18UavIbZeI5/F5OKUzyjQip0yb6WPt6BZ2YpYww=",
+        "lastModified": 1759360197,
+        "narHash": "sha256-OW8kSDBBSZr0G3U27AAkZ3cH3TJmSARbg9Pc4qZ6tA0=",
         "owner": "jj-vcs",
         "repo": "jj",
-        "rev": "24f4e1083e8bcd6e5b8aaee3fa86e08cb7081d13",
+        "rev": "22900c9a9ba362efa442fed2dd4e6e1d5c22cc7a",
         "type": "github"
       },
       "original": {
         "owner": "jj-vcs",
-        "ref": "v0.33.0",
+        "ref": "v0.34.0",
         "repo": "jj",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1757746433,
-        "narHash": "sha256-fEvTiU4s9lWgW7mYEU/1QUPirgkn+odUBTaindgiziY=",
+        "lastModified": 1759133924,
+        "narHash": "sha256-eegjF6fo080481S/ZHyDENjeGG1ZgW2v86O9UZQxLJ8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6d7ec06d6868ac6d94c371458fc2391ded9ff13d",
+        "rev": "9547cfd27b5158eb612a6812dfc5c7b3d118b996",
         "type": "github"
       },
       "original": {
