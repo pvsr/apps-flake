@@ -15,8 +15,9 @@
     ghostty.inputs.zon2nix.inputs.nixpkgs.follows = "nixpkgs";
 
     gleam-nix.url = "github:vic/gleam-nix";
-    gleam-nix.inputs.gleam.url = "github:gleam-lang/gleam/v1.12.0";
+    gleam-nix.inputs.gleam.url = "github:gleam-lang/gleam/v1.13.0-rc1";
     gleam-nix.inputs.nixpkgs.follows = "nixpkgs";
+    gleam-nix.inputs.rust-manifest.url = "file+https://static.rust-lang.org/dist/channel-rust-1.88.0.toml";
     janet.url = "github:janet-lang/janet/v1.39.1";
     janet.flake = false;
   };
