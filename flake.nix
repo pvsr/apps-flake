@@ -2,7 +2,7 @@
   description = "Various dev tools I often want to install from source";
 
   inputs = {
-    fish.url = "github:fish-shell/fish-shell/4.1.1";
+    fish.url = "github:fish-shell/fish-shell/4.1.2";
     fish.flake = false;
     jj.url = "github:jj-vcs/jj/v0.34.0";
     jj.inputs.nixpkgs.follows = "nixpkgs";
@@ -56,7 +56,7 @@
             ];
             cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
               inherit (finalAttrs) src patches;
-              hash = "sha256-WZdfon6mnM+5caWW6yInQx5B1GjCxQ0XLbJlbvHa3Zc=";
+              hash = "sha256-7mYWCHH6DBWTIJV8GPRjjf6QulwlYjwv0slablDvBF8=";
             };
             postPatch =
               replaceStrings [ "src/tests/highlight.rs" ] [ "src/highlight/tests.rs" ]
