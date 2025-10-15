@@ -25,24 +25,11 @@
   outputs =
     { nixpkgs, ... }@inputs:
     let
-      inherit (builtins)
-        attrValues
-        removeAttrs
-        replaceStrings
-        ;
-      metaPackages = [
-        "all"
-        "dev"
-        "default"
-      ];
       forAllSystems =
         mkOutputs:
-        nixpkgs.lib.genAttrs [
-          "aarch64-linux"
-          "aarch64-darwin"
-          "x86_64-darwin"
-          "x86_64-linux"
-        ] (system: mkOutputs nixpkgs.legacyPackages.${system});
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
+          system: mkOutputs nixpkgs.legacyPackages.${system}
+        );
     in
     {
       packages = forAllSystems (pkgs: {
@@ -59,7 +46,7 @@
               hash = "sha256-7mYWCHH6DBWTIJV8GPRjjf6QulwlYjwv0slablDvBF8=";
             };
             postPatch =
-              replaceStrings [ "src/tests/highlight.rs" ] [ "src/highlight/tests.rs" ]
+              builtins.replaceStrings [ "src/tests/highlight.rs" ] [ "src/highlight/tests.rs" ]
                 previousAttrs.postPatch;
           }
         );
@@ -74,19 +61,16 @@
           version = inputs.janet.shortRev;
         };
 
-        dev = pkgs.buildEnv {
-          name = "pvsr/dev-tools";
+        default = pkgs.buildEnv {
+          name = "pvsr-src-apps";
           paths = with inputs.self.packages.${pkgs.system}; [
-            fish
             jj
             helix
+            ghostty
+            gleam
+            janet
           ];
         };
-        all = pkgs.buildEnv {
-          name = "pvsr/src-apps";
-          paths = attrValues (removeAttrs inputs.self.packages.${pkgs.system} metaPackages);
-        };
-        default = inputs.self.packages.${pkgs.system}.all;
       });
     };
 }
