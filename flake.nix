@@ -14,10 +14,8 @@
     ghostty.inputs.nixpkgs.follows = "nixpkgs";
     ghostty.inputs.zon2nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    gleam-nix.url = "github:vic/gleam-nix";
-    gleam-nix.inputs.gleam.url = "github:gleam-lang/gleam/v1.13.0-rc1";
-    gleam-nix.inputs.nixpkgs.follows = "nixpkgs";
-    gleam-nix.inputs.rust-manifest.url = "file+https://static.rust-lang.org/dist/channel-rust-1.88.0.toml";
+    gleam.url = "github:gleam-lang/gleam/v1.13.0";
+    gleam.flake = false;
     janet.url = "github:janet-lang/janet/v1.39.1";
     janet.flake = false;
   };
@@ -30,17 +28,20 @@
         nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
           system: mkOutputs nixpkgs.legacyPackages.${system}
         );
+      getCargoVersion =
+        path:
+        nixpkgs.lib.pipe path [
+          builtins.readFile
+          (builtins.match ''.+''\nversion = "([^"]+)".*'')
+          (ver: builtins.elemAt ver 0)
+        ];
     in
     {
       packages = forAllSystems (pkgs: {
         fish = pkgs.fish.overrideAttrs (
           finalAttrs: previousAttrs: {
             src = inputs.fish;
-            version = pkgs.lib.pipe "${inputs.fish}/Cargo.toml" [
-              builtins.readFile
-              (builtins.match ''.+"fish".version = "([^"]+)".*'')
-              (ver: builtins.elemAt ver 0)
-            ];
+            version = getCargoVersion "${inputs.fish}/Cargo.toml";
             cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
               inherit (finalAttrs) src patches;
               hash = "sha256-7mYWCHH6DBWTIJV8GPRjjf6QulwlYjwv0slablDvBF8=";
@@ -55,7 +56,14 @@
         helix = inputs.helix.packages.${pkgs.system}.default;
         ghostty = inputs.ghostty.packages.${pkgs.system}.default;
 
-        gleam = inputs.gleam-nix.packages.${pkgs.system}.default;
+        gleam = pkgs.gleam.overrideAttrs rec {
+          src = inputs.gleam;
+          version = getCargoVersion "${inputs.gleam}/gleam-bin/Cargo.toml";
+          cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+            inherit src;
+            hash = "sha256-TzHjXW9sSbOJv7PrUaQzZ0jOPocVci1DjcmLzv7aaBY=";
+          };
+        };
         janet = pkgs.janet.overrideAttrs {
           src = inputs.janet;
           version = inputs.janet.shortRev;
